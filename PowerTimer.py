@@ -7,7 +7,7 @@ from bisect import insort
 from enigma import eActionMap, quitMainloop
 
 from Components.config import config
-from Components.Harddisk import internalHDDNotSleeping
+#from Components.Harddisk import internalHDDNotSleeping
 from Components.TimerSanityCheck import TimerSanityCheck
 from Screens.MessageBox import MessageBox
 import Screens.Standby
@@ -160,7 +160,7 @@ class PowerTimerEntry(timer.TimerEntry, object):
 						self.end = self.begin
 
 			elif self.timerType == TIMERTYPE.AUTODEEPSTANDBY:
-				if (NavigationInstance.instance.RecordTimer.isRecording() or abs(NavigationInstance.instance.RecordTimer.getNextRecordingTime() - time()) <= 900 or abs(NavigationInstance.instance.RecordTimer.getNextZapTime() - time()) <= 900) or (self.autosleepinstandbyonly == 'yes' and not Screens.Standby.inStandby) or (self.autosleepinstandbyonly == 'yes' and Screens.Standby.inStandby and internalHDDNotSleeping()):
+				if (NavigationInstance.instance.RecordTimer.isRecording() or abs(NavigationInstance.instance.RecordTimer.getNextRecordingTime() - time()) <= 900 or abs(NavigationInstance.instance.RecordTimer.getNextZapTime() - time()) <= 900) or (self.autosleepinstandbyonly == 'yes' and not Screens.Standby.inStandby) or (self.autosleepinstandbyonly == 'yes' and Screens.Standby.inStandby()):
 					self.do_backoff()
 					# retry
 					self.begin = time() + self.backoff
